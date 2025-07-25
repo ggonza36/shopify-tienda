@@ -1,0 +1,18 @@
+<section class="container">
+  <h2>Productos</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:2em;">
+    {% for product in collections.all.products %}
+      <div class="product-card" style="flex:1 1 240px;min-width:240px;">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" style="width:100%;border-radius:8px;">
+        </a>
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.price | money }}</p>
+        <form action="/cart/add" method="post">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          <button type="submit" class="add-to-cart">Agregar al carrito</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+</section>
